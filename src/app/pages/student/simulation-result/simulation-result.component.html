@@ -1,0 +1,29 @@
+<div *ngIf="attempt; else loadingTpl">
+  <div class="card shadow-sm">
+    <div class="card-body p-4">
+      <h2 class="mb-3">Resultado final</h2>
+
+      <p><strong>Simulación:</strong> {{ attempt.simulationTitle }}</p>
+      <p><strong>Puntaje final:</strong> {{ attempt.totalScore }}</p>
+      <p><strong>Nivel:</strong> {{ attempt.finalResultTitle }}</p>
+
+      <div class="mt-4">
+        <h5>Feedback final</h5>
+        <p>{{ attempt.finalFeedbackText }}</p>
+      </div>
+
+      <div class="mt-4">
+        <h5>Respuesta de la empresa</h5>
+        <p>{{ attempt.companyResponseText }}</p>
+      </div>
+
+      <a class="btn btn-dark mt-3" routerLink="/student/simulations">
+        Volver a simulaciones
+      </a>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="text-center py-5">Cargando resultado...</div>
+</ng-template>

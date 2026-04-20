@@ -1,0 +1,180 @@
+<div class="student-layout">
+  <header class="topbar">
+    <div class="brand-block">
+      <img src="/images/logo-yachay.png" alt="Logo Yachay Tech" class="brand-logo">
+      <div>
+        <h1 class="brand-title">YACHAY-TECH</h1>
+        <p class="brand-subtitle">Tecnología que incluye</p>
+      </div>
+    </div>
+
+    <div class="user-box" *ngIf="currentSession">
+      <div class="user-avatar">
+        {{ currentSession.fullName.charAt(0) }}
+      </div>
+
+      <div class="user-info">
+        <div class="user-name">{{ currentSession.fullName }}</div>
+        <div class="user-role">{{ currentSession.roleName }}</div>
+      </div>
+
+      <button class="dropdown-btn" (click)="toggleUserMenu()">
+        ▼
+      </button>
+
+      <div class="user-dropdown" *ngIf="isUserMenuOpen">
+        <button class="logout-btn" (click)="logout()">Cerrar sesión</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="body-area">
+    <aside class="sidebar">
+      <button
+        class="menu-btn"
+        [class.active]="activeSection === 'inicio'"
+        (click)="setSection('inicio')">
+        Inicio
+      </button>
+
+      <button
+        class="menu-btn"
+        [class.active]="activeSection === 'progreso'"
+        (click)="setSection('progreso')">
+        Mi Progreso
+      </button>
+
+      <button
+        class="menu-btn"
+        [class.active]="activeSection === 'historial'"
+        (click)="setSection('historial')">
+        Historial
+      </button>
+    </aside>
+
+    <section class="content-area">
+      <div class="alert alert-danger" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <ng-container *ngIf="activeSection === 'inicio'">
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-title">Simulaciones matriculadas</div>
+            <div class="stat-value">{{ enrolledSimulationsCount }}</div>
+          </div>
+
+          <div class="stat-card green">
+            <div class="stat-title">Mejor puntaje</div>
+            <div class="stat-value">{{ bestScore }}</div>
+          </div>
+
+          <div class="stat-card yellow">
+            <div class="stat-title">Intentos iniciados</div>
+            <div class="stat-value">{{ startedAttemptsCount }}</div>
+          </div>
+
+          <div class="stat-card purple">
+            <div class="stat-title">Intentos completados</div>
+            <div class="stat-value">{{ completedAttemptsCount }}</div>
+          </div>
+        </div>
+
+        <h2 class="section-title">¿Qué quieres hacer hoy?</h2>
+
+        <div class="resume-card" *ngIf="currentInProgressAttempt && currentSimulation; else noResumeBlock">
+          <div class="resume-icon">▶</div>
+
+          <div class="resume-content">
+            <h3>Continuar última simulación</h3>
+            <p class="mb-2">
+              {{ currentSimulation.title }}
+            </p>
+            <p>
+              Retoma donde lo dejaste. Tus decisiones anteriores están guardadas.
+            </p>
+
+            <button class="btn btn-dark" (click)="resumeCurrentAttempt()">
+              Continuar
+            </button>
+          </div>
+        </div>
+
+        <ng-template #noResumeBlock>
+          <div class="empty-info">
+            No tienes una simulación en progreso en este momento.
+          </div>
+        </ng-template>
+
+        <div class="simulation-grid">
+          <div class="simulation-card" *ngFor="let simulationItem of enrolledSimulations">
+            <div class="simulation-icon">🚀</div>
+
+            <div class="simulation-content">
+              <h4>{{ simulationItem.title }}</h4>
+              <p class="simulation-course">
+                {{ simulationItem.courseName }}
+              </p>
+              <p>{{ simulationItem.description }}</p>
+
+              <button class="btn btn-success" (click)="startSimulation(simulationItem)">
+                Iniciar o retomar
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="activeSection === 'progreso'">
+        <h2 class="section-title">Mi progreso</h2>
+
+        <div class="progress-box">
+          <p><strong>Cursos matriculados:</strong> {{ enrolledCoursesCount }}</p>
+          <p><strong>Simulaciones disponibles para ti:</strong> {{ enrolledSimulationsCount }}</p>
+          <p><strong>Intentos iniciados:</strong> {{ startedAttemptsCount }}</p>
+          <p><strong>Intentos completados:</strong> {{ completedAttemptsCount }}</p>
+          <p><strong>Mejor puntaje:</strong> {{ bestScore }}</p>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="activeSection === 'historial'">
+        <h2 class="section-title">Historial</h2>
+
+        <div class="table-responsive" *ngIf="studentAttempts.length > 0; else noHistoryBlock">
+          <table class="table table-bordered table-hover align-middle bg-white">
+            <thead class="table-light">
+              <tr>
+                <th>Simulación</th>
+                <th>Estado</th>
+                <th>Puntaje</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let attemptItem of studentAttempts">
+                <td>{{ attemptItem.simulationTitle }}</td>
+                <td>{{ attemptItem.status }}</td>
+                <td>{{ attemptItem.totalScore }}</td>
+                <td>{{ attemptItem.startedAt | date:'short' }}</td>
+                <td>{{ attemptItem.completedAt ? (attemptItem.completedAt | date:'short') : '-' }}</td>
+                <td>
+                  <button class="btn btn-sm btn-outline-dark" (click)="openAttempt(attemptItem)">
+                    Ver
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ng-template #noHistoryBlock>
+          <div class="empty-info">
+            Aún no tienes intentos registrados.
+          </div>
+        </ng-template>
+      </ng-container>
+    </section>
+  </div>
+</div>

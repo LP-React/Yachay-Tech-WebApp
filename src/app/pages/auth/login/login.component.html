@@ -1,0 +1,80 @@
+<div class="login-page">
+  <div class="login-wrapper">
+    <h1 class="page-title">Simulador YACHAY-TECH</h1>
+
+    <div class="login-card">
+      <div class="logo-container">
+        *LOGO PENDIENTE*
+        <!--img src="/images/logo-yachay.png" alt="Logo Yachay Tech" class="brand-logo bg-clip-padding"-->
+      </div>
+
+      <h2 class="logo-subtitle">Tecnología que incluye</h2>
+
+      <div class="general-error-message" *ngIf="generalErrorMessage">
+        {{ generalErrorMessage }}
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        <div class="form-group">
+          <label class="form-label">Correo electrónico</label>
+          <input
+            type="email"
+            class="form-control custom-input"
+            formControlName="email"
+            placeholder="usuario@cibertec.edu.pe"
+            (input)="clearServerErrors()"
+          >
+
+          <div class="field-hint"
+               *ngIf="emailControl?.touched && !emailControl?.errors && !emailErrorMessage">
+            Ingrese con correo institucional
+          </div>
+
+          <div class="field-error" *ngIf="emailControl?.touched && emailControl?.errors?.['required']">
+            El correo es obligatorio
+          </div>
+
+          <div class="field-error" *ngIf="emailControl?.touched && emailControl?.errors?.['email']">
+            Ingrese un correo válido
+          </div>
+
+          <div class="field-error" *ngIf="emailErrorMessage">
+            {{ emailErrorMessage }}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Contraseña</label>
+          <input
+            type="password"
+            class="form-control custom-input"
+            formControlName="password"
+            placeholder="••••••••"
+            (input)="clearServerErrors()"
+          >
+
+          <div class="field-error" *ngIf="passwordControl?.touched && passwordControl?.errors?.['required']">
+            La contraseña es obligatoria
+          </div>
+
+          <div class="field-error" *ngIf="passwordErrorMessage">
+            {{ passwordErrorMessage }}
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button
+            type="submit"
+            class="btn btn-login"
+            [disabled]="loginForm.invalid || loading">
+            {{ loading ? 'Ingresando...' : 'Iniciar Sesión' }}
+          </button>
+
+          <a routerLink="/register" class="btn btn-register">
+            Registrarse
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

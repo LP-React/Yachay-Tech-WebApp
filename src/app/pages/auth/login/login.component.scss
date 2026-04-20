@@ -1,0 +1,154 @@
+.login-page {
+  min-height: 100vh;
+  background: #eef1f6;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 16px;
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 640px;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #0b1f4d;
+  margin-bottom: 26px;
+}
+
+.login-card {
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.10);
+  padding: 36px 40px 44px;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.login-logo {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+}
+
+.logo-subtitle {
+  text-align: center;
+  color: #55b34c;
+  font-size: 2.2rem;
+  font-weight: 400;
+  margin-bottom: 22px;
+}
+
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-label {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0b1f4d;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.custom-input {
+  height: 64px;
+  border-radius: 22px;
+  border: 2px solid #c8d2df;
+  font-size: 1.15rem;
+  padding: 0 22px;
+  box-shadow: none;
+}
+
+.custom-input:focus {
+  border-color: #0b1f4d;
+  box-shadow: none;
+}
+
+.field-hint {
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.field-error {
+  margin-top: 8px;
+  color: #d11a2a;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.general-error-message {
+  margin-bottom: 18px;
+  color: #d11a2a;
+  font-size: 0.98rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.button-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.btn-login,
+.btn-register {
+  flex: 1;
+  height: 70px;
+  border-radius: 22px;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.btn-login {
+  background: #071844;
+  color: white;
+  border: none;
+}
+
+.btn-login:hover {
+  background: #0a235d;
+  color: white;
+}
+
+.btn-register {
+  background: white;
+  color: #111827;
+  border: 2px solid #c8d2df;
+}
+
+.btn-register:hover {
+  background: #f8fafc;
+  color: #111827;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 2.2rem;
+  }
+
+  .login-card {
+    padding: 28px 22px 32px;
+  }
+
+  .logo-subtitle {
+    font-size: 1.8rem;
+  }
+
+  .button-row {
+    flex-direction: column;
+  }
+}

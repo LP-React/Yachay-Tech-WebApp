@@ -1,0 +1,99 @@
+<a routerLink="/teacher/attempts" class="btn btn-outline-dark mb-3">Volver</a>
+
+<div class="alert alert-danger" *ngIf="error">
+  {{ error }}
+</div>
+
+<div *ngIf="detail" class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h3>Detalle del intento #{{ detail.attemptId }}</h3>
+    <p class="mb-1"><strong>Estudiante:</strong> {{ detail.studentFullName }}</p>
+    <p class="mb-1"><strong>Correo:</strong> {{ detail.studentEmail }}</p>
+    <p class="mb-1"><strong>Simulación:</strong> {{ detail.simulationTitle }}</p>
+    <p class="mb-1"><strong>Estado:</strong> {{ detail.status }}</p>
+    <p class="mb-1"><strong>Puntaje:</strong> {{ detail.totalScore }}</p>
+    <p class="mb-1"><strong>Resultado:</strong> {{ detail.finalResultTitle }}</p>
+    <p class="mb-1"><strong>Feedback final:</strong> {{ detail.finalFeedbackText }}</p>
+    <p class="mb-1"><strong>Respuesta empresa:</strong> {{ detail.companyResponseText }}</p>
+  </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h4>Trazabilidad</h4>
+
+    <div class="table-responsive" *ngIf="trace.length > 0">
+      <table class="table table-bordered table-sm">
+        <thead class="table-light">
+          <tr>
+            <th>Paso</th>
+            <th>Fase</th>
+            <th>Nodo</th>
+            <th>Opción</th>
+            <th>Puntaje</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of trace">
+            <td>{{ item.stepNumber }}</td>
+            <td>{{ item.phaseTitle }}</td>
+            <td>{{ item.nodeTitleSnapshot }}</td>
+            <td>{{ item.optionTextSnapshot }}</td>
+            <td>{{ item.scoreAwarded }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h4>Registrar / actualizar revisión</h4>
+
+    <form [formGroup]="reviewForm" (ngSubmit)="saveReview()">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Nota manual</label>
+          <input type="number" step="0.01" class="form-control" formControlName="manualScore">
+        </div>
+
+        <div class="col-md-8">
+          <label class="form-label">Comentarios</label>
+          <textarea rows="3" class="form-control" formControlName="comments"></textarea>
+        </div>
+      </div>
+
+      <button class="btn btn-dark mt-3">
+        Guardar revisión
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h4>Revisiones registradas</h4>
+
+    <div class="table-responsive" *ngIf="reviews.length > 0">
+      <table class="table table-bordered table-sm">
+        <thead class="table-light">
+          <tr>
+            <th>Docente</th>
+            <th>Nota</th>
+            <th>Comentario</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of reviews">
+            <td>{{ item.teacherFullName }}</td>
+            <td>{{ item.manualScore }}</td>
+            <td>{{ item.comments }}</td>
+            <td>{{ item.reviewedAt }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

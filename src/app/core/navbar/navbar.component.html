@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" routerLink="/login">Yachay Tech</a>
+
+    <div class="d-flex align-items-center gap-2 ms-auto" *ngIf="session; else guestBlock">
+      <span class="text-white small user-label">
+        {{ session.fullName }} - {{ session.roleName }}
+      </span>
+
+      <a
+        *ngIf="session.roleCode === 'ESTUDIANTE'"
+        class="btn btn-sm btn-outline-light"
+        routerLink="/student/simulations">
+        Simulaciones
+      </a>
+
+      <a
+        *ngIf="session.roleCode === 'DOCENTE'"
+        class="btn btn-sm btn-outline-light"
+        routerLink="/teacher/attempts">
+        Panel Docente
+      </a>
+
+      <button class="btn btn-sm btn-warning" (click)="logout()">
+        Salir
+      </button>
+    </div>
+
+    <ng-template #guestBlock>
+      <div class="d-flex gap-2 ms-auto">
+        <a class="btn btn-sm btn-outline-light" routerLink="/login">Login</a>
+        <a class="btn btn-sm btn-warning" routerLink="/register">Registro</a>
+      </div>
+    </ng-template>
+  </div>
+</nav>

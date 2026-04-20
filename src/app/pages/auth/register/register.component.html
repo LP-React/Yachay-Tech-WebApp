@@ -1,0 +1,59 @@
+<div class="row justify-content-center register-wrapper">
+  <div class="col-md-7">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h3 class="mb-3">Registro de estudiante</h3>
+
+        <div class="alert alert-success" *ngIf="success">
+          {{ success }}
+        </div>
+
+        <div class="alert alert-danger" *ngIf="error">
+          {{ error }}
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Nombres</label>
+              <input class="form-control" formControlName="names">
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Apellidos</label>
+              <input class="form-control" formControlName="lastNames">
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Correo institucional</label>
+              <input class="form-control" formControlName="email">
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Contraseña</label>
+              <input type="password" class="form-control" formControlName="password">
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Código institucional</label>
+              <input class="form-control" formControlName="institutionalCode">
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Teléfono</label>
+              <input class="form-control" formControlName="phone">
+            </div>
+          </div>
+
+          <button class="btn btn-dark w-100" [disabled]="form.invalid || loading">
+            {{ loading ? 'Registrando...' : 'Registrar' }}
+          </button>
+        </form>
+
+        <div class="mt-3 text-center">
+          <a routerLink="/login">Volver al login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

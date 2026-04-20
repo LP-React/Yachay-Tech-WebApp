@@ -1,0 +1,51 @@
+<div *ngIf="attempt; else loadingTpl">
+  <div class="mb-4">
+    <h2>{{ attempt.simulationTitle }}</h2>
+    <p class="mb-1"><strong>Estado:</strong> {{ attempt.status }}</p>
+    <p class="mb-1"><strong>Puntaje:</strong> {{ attempt.totalScore }}</p>
+  </div>
+
+  <div class="alert alert-danger" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <div class="card shadow-sm" *ngIf="attempt.currentNode as node">
+    <div class="card-body">
+      <div class="mb-2 text-muted" *ngIf="node.phaseTitle">
+        {{ node.phaseTitle }}
+      </div>
+
+      <h4>{{ node.title }}</h4>
+
+      <p class="fw-semibold" *ngIf="node.promptText">
+        {{ node.promptText }}
+      </p>
+
+      <div class="mb-3 content-block" *ngIf="node.contentText">
+        {{ node.contentText }}
+      </div>
+
+      <div *ngIf="node.nodeType === 'DECISION'; else continueTpl">
+        <div class="d-grid gap-2">
+          <button
+            class="btn btn-outline-dark text-start option-btn"
+            *ngFor="let option of node.options"
+            (click)="answer(option.optionId)">
+            <div class="fw-semibold">{{ option.optionText }}</div>
+            <small class="text-muted">{{ option.optionDescription }}</small>
+          </button>
+        </div>
+      </div>
+
+      <ng-template #continueTpl>
+        <button class="btn btn-dark" (click)="continueNode()">
+          Continuar
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <div class="text-center py-5">Cargando intento...</div>
+</ng-template>
